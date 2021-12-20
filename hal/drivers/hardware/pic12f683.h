@@ -1,5 +1,5 @@
 /************************************************************************************************
- * @Title          :    PIC12F683 hardware and registers specifications
+ * @Title          :    PIC12F683 hardware definitions and specifications
  * @Filename       :    pic12f683.h
  * @Author         :    Eng. Jonnes F. Nascimento
  * @Origin Date    :    16/12/2021
@@ -11,11 +11,9 @@
  ************************************************************************************************/
 /** **********************************************************************************************
  * @file pic12f683.h
- * @brief Interface implementation for general purpose input/output (GPIO)
+ * @brief PIC12F683 hardware definitions and specifications
  *
- *  This is the implementation file for the interface of a digital
- *  input / output peripheral on a standard microcontroller. Some microcontrollers
- *  call this digital I/O as PORT_x. In this case, this is called GPIO.
+ *  This is the hardware definitions for PIC12F683.
  *
  * @addtogroup Hardware
  * Peripheral hardware and registers configuration group.
