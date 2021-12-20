@@ -1,4 +1,4 @@
-<map id="D:/projects/PIC/pic12f683_drivers/hal/drivers/hardware/pic12f683.h" name="D:/projects/PIC/pic12f683_drivers/hal/drivers/hardware/pic12f683.h">
-<area shape="rect" id="node1" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="11,5,195,61"/>
-<area shape="rect" id="node2" href="$gpio_8c.html" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="5,109,200,151"/>
+<map id="D:/projects/HAL/microcontroller_hal_ref_impl/hal/drivers/hardware/pic12f683.h" name="D:/projects/HAL/microcontroller_hal_ref_impl/hal/drivers/hardware/pic12f683.h">
+<area shape="rect" id="node1" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="5,5,208,61"/>
+<area shape="rect" id="node2" href="$gpio_8c.html" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="5,109,208,165"/>
 </map>

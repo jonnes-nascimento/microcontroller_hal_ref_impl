@@ -1,7 +1,7 @@
-<map id="D:/projects/PIC/pic12f683_drivers/hal/drivers/gpio/gpio.c" name="D:/projects/PIC/pic12f683_drivers/hal/drivers/gpio/gpio.c">
-<area shape="rect" id="node1" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="37,5,232,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,67,121"/>
-<area shape="rect" id="node3" href="$pic12f683_8h.html" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="91,95,179,121"/>
-<area shape="rect" id="node4" href="$gpio_8h.html" title="Interface definition for general purpose input/output (GPIO)" alt="" coords="203,95,261,121"/>
-<area shape="rect" id="node5" href="$gpio__config_8h.html" title="Interface definition for general purpose input/output configuration." alt="" coords="169,169,295,196"/>
+<map id="D:/projects/HAL/microcontroller_hal_ref_impl/hal/drivers/gpio/gpio.c" name="D:/projects/HAL/microcontroller_hal_ref_impl/hal/drivers/gpio/gpio.c">
+<area shape="rect" id="node1" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="33,5,236,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,109,67,136"/>
+<area shape="rect" id="node3" href="$pic12f683_8h.html" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="91,109,179,136"/>
+<area shape="rect" id="node4" href="$gpio_8h.html" title="Interface definition for general purpose input/output (GPIO)" alt="" coords="203,109,261,136"/>
+<area shape="rect" id="node5" href="$gpio__config_8h.html" title="Interface definition for general purpose input/output configuration." alt="" coords="169,184,295,211"/>
 </map>
