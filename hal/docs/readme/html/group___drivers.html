@@ -89,6 +89,8 @@ Functions</h2></td></tr>
 <tr class="separator:gaaad357fa85fa00542c5db89d2d867691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac83ad26622b319e44ed059988477cd22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gac83ad26622b319e44ed059988477cd22">Gpio_Write_Register</a> (<a class="el" href="union_gpio_port__t.html">GpioPort_t</a> Port)</td></tr>
 <tr class="separator:gac83ad26622b319e44ed059988477cd22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74da61c28104d883186e6963d2f90382"><td class="memItemLeft" align="right" valign="top"><a class="el" href="union_gpio_port__t.html">GpioPort_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga74da61c28104d883186e6963d2f90382">Gpio_Read_Register</a> (void)</td></tr>
+<tr class="separator:ga74da61c28104d883186e6963d2f90382"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -190,7 +192,7 @@ Variables</h2></td></tr>
 <tr>
 <td>Date </td><td>Software Version </td><td>Initials </td><td>Description  </td></tr>
 <tr>
-<td>16/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Interface Created  </td></tr>
+<td>16/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Creation Date  </td></tr>
 <tr>
 <td>17/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Documentation Created  </td></tr>
 </table>
@@ -208,6 +210,55 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,56,32"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ga74da61c28104d883186e6963d2f90382" name="ga74da61c28104d883186e6963d2f90382"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74da61c28104d883186e6963d2f90382">&#9670;&nbsp;</a></span>Gpio_Read_Register()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="union_gpio_port__t.html">GpioPort_t</a> Gpio_Read_Register </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p ><b>Description:</b> </p>
+<p >This function is used to read GPIO port byte.</p>
+<p >Pre-condition: GPIO port must have been initialized <br  />
+</p>
+<p >Post-condition: None</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="union_gpio_port__t.html">GpioPort_t</a></dd></dl>
+<p><b>Example:</b> </p>
+<div class="fragment"><div class="line"><a class="code hl_union" href="union_gpio_port__t.html">GpioPort_t</a> Port = Gpio_Read_Byte();</div>
+<div class="ttc" id="aunion_gpio_port__t_html"><div class="ttname"><a href="union_gpio_port__t.html">GpioPort_t</a></div><div class="ttdef"><b>Definition:</b> <a href="gpio__config_8h_source.html#l00061">gpio_config.h:62</a></div></div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a class="el" href="group___drivers.html#gaba4bf0e9e96d49b2779b2eff918e05ab">Gpio_Init</a> </dd>
+<dd>
+<a class="el" href="group___drivers.html#gaaad357fa85fa00542c5db89d2d867691">Gpio_Write</a> </dd>
+<dd>
+<a class="el" href="group___drivers.html#gac83ad26622b319e44ed059988477cd22">Gpio_Write_Register</a></dd></dl>
+<p><b>HISTORY OF CHANGES</b> </p><table align="left" style="width:800px">
+<tr>
+<td>Date </td><td>Software Version </td><td>Initials </td><td>Description  </td></tr>
+<tr>
+<td>20/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Creation Date  </td></tr>
+</table>
+<p><br  />
+<br  />
+</p><hr  />
+ 
+<p class="definition">Definition at line <a class="el" href="gpio_8c_source.html#l00283">283</a> of file <a class="el" href="gpio_8c_source.html">gpio.c</a>.</p>
 
 </div>
 </div>
@@ -261,7 +312,7 @@ Here is the caller graph for this function:</div>
 <tr>
 <td>Date </td><td>Software Version </td><td>Initials </td><td>Description  </td></tr>
 <tr>
-<td>16/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Interface Created  </td></tr>
+<td>16/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Creation Date  </td></tr>
 <tr>
 <td>17/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Documentation Created  </td></tr>
 </table>
@@ -313,12 +364,14 @@ Here is the caller graph for this function:</div>
 <div class="fragment"><div class="line">Gpio_Write_Byte(0x04);</div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a class="el" href="group___drivers.html#gaba4bf0e9e96d49b2779b2eff918e05ab">Gpio_Init</a> </dd>
 <dd>
-<a class="el" href="group___drivers.html#gaaad357fa85fa00542c5db89d2d867691">Gpio_Write</a></dd></dl>
+<a class="el" href="group___drivers.html#gaaad357fa85fa00542c5db89d2d867691">Gpio_Write</a> </dd>
+<dd>
+<a class="el" href="group___drivers.html#ga74da61c28104d883186e6963d2f90382">Gpio_Read_Register</a></dd></dl>
 <p><b>HISTORY OF CHANGES</b> </p><table align="left" style="width:800px">
 <tr>
 <td>Date </td><td>Software Version </td><td>Initials </td><td>Description  </td></tr>
 <tr>
-<td>16/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Interface Created  </td></tr>
+<td>16/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Creation Date  </td></tr>
 <tr>
 <td>17/12/2021 </td><td>0.0.1 </td><td>JFN </td><td>Documentation Created  </td></tr>
 </table>
@@ -326,7 +379,7 @@ Here is the caller graph for this function:</div>
 <br  />
 </p><hr  />
  
-<p class="definition">Definition at line <a class="el" href="gpio_8c_source.html#l00242">242</a> of file <a class="el" href="gpio_8c_source.html">gpio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gpio_8c_source.html#l00243">243</a> of file <a class="el" href="gpio_8c_source.html">gpio.c</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

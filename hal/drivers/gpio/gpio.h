@@ -50,6 +50,7 @@
 void Gpio_Init(const GpioConfig_t * const Config);
 void Gpio_Write(GpioChannel_t channel, GpioPinState_t state);
 void Gpio_Write_Register(GpioPort_t port);
+GpioPort_t Gpio_Read_Register(void);
 
 #endif //_GPIO_H_
 /************************************************************************************************

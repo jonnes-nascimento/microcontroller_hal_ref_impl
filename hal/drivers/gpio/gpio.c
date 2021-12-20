@@ -121,7 +121,7 @@ static ARCH_ADDR_SIZE volatile * const GpioFunction[NUMBER_OF_PORTS] = {
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
  * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
- * <tr><td> 16/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Interface Created </td></tr>
+ * <tr><td> 16/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
  * <tr><td> 17/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Documentation Created </td></tr>
  * </table><br><br><hr>
  ************************************************************************************************/
@@ -195,7 +195,7 @@ void Gpio_Init(const GpioConfig_t * const Config)
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
  * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
- * <tr><td> 16/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Interface Created </td></tr>
+ * <tr><td> 16/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
  * <tr><td> 17/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Documentation Created </td></tr>
  * </table><br><br><hr>
  ************************************************************************************************/
@@ -231,11 +231,12 @@ void Gpio_Write(GpioChannel_t channel, GpioPinState_t state)
  *
  * @see Gpio_Init
  * @see Gpio_Write
+ * @see Gpio_Read_Register
  *
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
  * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
- * <tr><td> 16/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Interface Created </td></tr>
+ * <tr><td> 16/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
  * <tr><td> 17/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Documentation Created </td></tr>
  * </table><br><br><hr>
  ************************************************************************************************/
@@ -247,6 +248,42 @@ void Gpio_Write_Register(GpioPort_t Port)
     printf("GPIO Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
 }
 
+/************************************************************************************************
+ * Function: GpioPort_t Gpio_Read_Register(void);
+ *//**
+ *
+ * \b Description:
+ *
+ * This function is used to read GPIO port byte.
+ *
+ * Pre-condition: GPIO port must have been initialized <br>
+ *
+ * Post-condition: None
+ *
+ * @param [in]          void
+ *
+ * @return              GpioPort_t
+ *
+ * \b Example:
+ *
+ * @code
+ * GpioPort_t Port = Gpio_Read_Byte();
+ * @endcode
+ *
+ * @see Gpio_Init
+ * @see Gpio_Write
+ * @see Gpio_Write_Register
+ *
+ * <b>HISTORY OF CHANGES</b>
+ * <table align="left" style="width:800px">
+ * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
+ * <tr><td> 20/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
+ * </table><br><br><hr>
+ ************************************************************************************************/
+GpioPort_t Gpio_Read_Register(void)
+{
+    // return *GpioPort[GPIO_PORT];
+}
 /************************************************************************************************
  * EOF
  ************************************************************************************************/
