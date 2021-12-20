@@ -80,14 +80,14 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Interface definition for general purpose input/output configuration.  
+<p>Interface definition for general purpose input/output configurations.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="gpio__config_8h__dep__incl.png" border="0" usemap="#a_d_1_2projects_2_h_a_l_2microcontroller__hal__ref__impl_2hal_2config_2gpio_2gpio__config_8hdep" alt=""/></div>
 <map name="a_d_1_2projects_2_h_a_l_2microcontroller__hal__ref__impl_2hal_2config_2gpio_2gpio__config_8hdep" id="a_d_1_2projects_2_h_a_l_2microcontroller__hal__ref__impl_2hal_2config_2gpio_2gpio__config_8hdep">
-<area shape="rect" title="Interface definition for general purpose input/output configuration." alt="" coords="119,5,321,61"/>
+<area shape="rect" title="Interface definition for general purpose input/output configurations." alt="" coords="119,5,321,61"/>
 <area shape="rect" href="gpio__config_8c.html" title="Interface implementation for general purpose input/output configurations." alt="" coords="5,109,208,165"/>
 <area shape="rect" href="gpio_8h.html" title="Interface definition for general purpose input/output (GPIO)" alt="" coords="232,109,435,165"/>
 <area shape="rect" href="gpio_8c.html" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="119,213,321,269"/>
@@ -143,7 +143,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="gpio__config_8h.html#a643d8d39812c42261a1c8b2bd61b25f6aa58903bbfcf5ce6be72580fe444189a2">GPIO_PIN_FUNCTION_TIMER</a>
 , <br />
 &#160;&#160;<a class="el" href="gpio__config_8h.html#a643d8d39812c42261a1c8b2bd61b25f6af495ab314910226145f7c73da54caa65">GPIO_PIN_FUNCTION_CAPTURE_COMPARE</a>
-, <a class="el" href="gpio__config_8h.html#a643d8d39812c42261a1c8b2bd61b25f6aa84a6278a599e71f4d6b9c676b916b2e">GPIO_PIN_FUNCTION_INTERRUPT</a>
+, <a class="el" href="gpio__config_8h.html#a643d8d39812c42261a1c8b2bd61b25f6a8c405b8622a6f3513227710950885c95">GPIO_PIN_FUNCTION_INTERRUPT_ON_CHANGE</a>
+, <a class="el" href="gpio__config_8h.html#a643d8d39812c42261a1c8b2bd61b25f6a8e1dcb386c6941c39312441b4773acc7">GPIO_PIN_FUNCTION_EXTERNAL_INTERRUPT</a>
 <br />
  }</td></tr>
 <tr class="separator:a643d8d39812c42261a1c8b2bd61b25f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +161,14 @@ Enumerations</h2></td></tr>
 , <a class="el" href="gpio__config_8h.html#a40984b9819168ed55b8e8f43b4517be7a8fdddef4fd25c7979ac65a3a0e8598ee">GPIO_PIN_MAX_STATES</a>
  }</td></tr>
 <tr class="separator:a40984b9819168ed55b8e8f43b4517be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7686e46829530f57bad026831a8773"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gpio__config_8h.html#a0b7686e46829530f57bad026831a8773">GpioInterruptEdge_t</a> { <a class="el" href="gpio__config_8h.html#a0b7686e46829530f57bad026831a8773aefe588b203be8ae9aeaf53e218743031">GPIO_INTERRUPT_EDGE_FALLING</a>
+, <a class="el" href="gpio__config_8h.html#a0b7686e46829530f57bad026831a8773ade9ee418a43058a706ad6669f474bec1">GPIO_INTERRUPT_EDGE_RISING</a>
+, <a class="el" href="gpio__config_8h.html#a0b7686e46829530f57bad026831a8773ad5c64676f3769ad5366626f0f3af6798">GPIO_INTERRUPT_EDGE_NONE</a>
+ }</td></tr>
+<tr class="separator:a0b7686e46829530f57bad026831a8773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4d537def96abcc822e21574875f5178"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gpio__config_8h.html#ad4d537def96abcc822e21574875f5178">GpioCallbackEvent_t</a> { <a class="el" href="gpio__config_8h.html#ad4d537def96abcc822e21574875f5178a692fc44a1ae41c2fd12b123fa9501a9d">GPIO_EXTERNAL_INTERRUPT</a>
+ }</td></tr>
+<tr class="separator:ad4d537def96abcc822e21574875f5178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -167,7 +176,7 @@ Functions</h2></td></tr>
 <tr class="separator:gafd1ae0c543cb31bdd2d0806bcbdb5d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Interface definition for general purpose input/output configuration. </p>
+<div class="textblock"><p >Interface definition for general purpose input/output configurations. </p>
 <hr  />
 <p >This is the header file for the definition of the configuration for a digital input / output peripheral.</p>
 <p ><b>INTERFACE CHANGE LIST</b> </p><table align="left" style="width:800px">
@@ -220,6 +229,26 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ad4d537def96abcc822e21574875f5178" name="ad4d537def96abcc822e21574875f5178"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4d537def96abcc822e21574875f5178">&#9670;&nbsp;</a></span>GpioCallbackEvent_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="gpio__config_8h.html#ad4d537def96abcc822e21574875f5178">GpioCallbackEvent_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >GPIO callback events </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad4d537def96abcc822e21574875f5178a692fc44a1ae41c2fd12b123fa9501a9d" name="ad4d537def96abcc822e21574875f5178a692fc44a1ae41c2fd12b123fa9501a9d"></a>GPIO_EXTERNAL_INTERRUPT&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00153">153</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
+
+</div>
+</div>
 <a id="ab7f6171645a4af1d01a6fa997f946197" name="ab7f6171645a4af1d01a6fa997f946197"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7f6171645a4af1d01a6fa997f946197">&#9670;&nbsp;</a></span>GpioChannel_t</h2>
 
@@ -250,6 +279,31 @@ Functions</h2></td></tr>
 </table>
 
 <p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00078">78</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
+
+</div>
+</div>
+<a id="a0b7686e46829530f57bad026831a8773" name="a0b7686e46829530f57bad026831a8773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b7686e46829530f57bad026831a8773">&#9670;&nbsp;</a></span>GpioInterruptEdge_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="gpio__config_8h.html#a0b7686e46829530f57bad026831a8773">GpioInterruptEdge_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >GPIO interrupt trigger edge types </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0b7686e46829530f57bad026831a8773aefe588b203be8ae9aeaf53e218743031" name="a0b7686e46829530f57bad026831a8773aefe588b203be8ae9aeaf53e218743031"></a>GPIO_INTERRUPT_EDGE_FALLING&#160;</td><td class="fielddoc"><p >Interrupt is enabled on falling edge (0) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0b7686e46829530f57bad026831a8773ade9ee418a43058a706ad6669f474bec1" name="a0b7686e46829530f57bad026831a8773ade9ee418a43058a706ad6669f474bec1"></a>GPIO_INTERRUPT_EDGE_RISING&#160;</td><td class="fielddoc"><p >Interrupt is enabled on rising edge (1) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0b7686e46829530f57bad026831a8773ad5c64676f3769ad5366626f0f3af6798" name="a0b7686e46829530f57bad026831a8773ad5c64676f3769ad5366626f0f3af6798"></a>GPIO_INTERRUPT_EDGE_NONE&#160;</td><td class="fielddoc"><p >Interrupts are disabled </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00143">143</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
 
 </div>
 </div>
@@ -299,7 +353,9 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a643d8d39812c42261a1c8b2bd61b25f6af495ab314910226145f7c73da54caa65" name="a643d8d39812c42261a1c8b2bd61b25f6af495ab314910226145f7c73da54caa65"></a>GPIO_PIN_FUNCTION_CAPTURE_COMPARE&#160;</td><td class="fielddoc"><p >Pin is capture/compare mode </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a643d8d39812c42261a1c8b2bd61b25f6aa84a6278a599e71f4d6b9c676b916b2e" name="a643d8d39812c42261a1c8b2bd61b25f6aa84a6278a599e71f4d6b9c676b916b2e"></a>GPIO_PIN_FUNCTION_INTERRUPT&#160;</td><td class="fielddoc"><p >Pin is interrupt enabled </p>
+<tr><td class="fieldname"><a id="a643d8d39812c42261a1c8b2bd61b25f6a8c405b8622a6f3513227710950885c95" name="a643d8d39812c42261a1c8b2bd61b25f6a8c405b8622a6f3513227710950885c95"></a>GPIO_PIN_FUNCTION_INTERRUPT_ON_CHANGE&#160;</td><td class="fielddoc"><p >Pin is interrupt-on-change enabled </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a643d8d39812c42261a1c8b2bd61b25f6a8e1dcb386c6941c39312441b4773acc7" name="a643d8d39812c42261a1c8b2bd61b25f6a8e1dcb386c6941c39312441b4773acc7"></a>GPIO_PIN_FUNCTION_EXTERNAL_INTERRUPT&#160;</td><td class="fielddoc"><p >Pin is external interrupt enabled </p>
 </td></tr>
 </table>
 
@@ -326,7 +382,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00123">123</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00124">124</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
 
 </div>
 </div>
@@ -349,7 +405,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00114">114</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00115">115</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
 
 </div>
 </div>
@@ -374,7 +430,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00132">132</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gpio__config_8h_source.html#l00133">133</a> of file <a class="el" href="gpio__config_8h_source.html">gpio_config.h</a>.</p>
 
 </div>
 </div>

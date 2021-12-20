@@ -83,16 +83,18 @@ $(function() {
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="pic12f683_8h_source.html">pic12f683.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="gpio_8h_source.html">gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for gpio.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="gpio_8c__incl.png" border="0" usemap="#a_d_1_2projects_2_h_a_l_2microcontroller__hal__ref__impl_2hal_2drivers_2gpio_2gpio_8c" alt=""/></div>
 <map name="a_d_1_2projects_2_h_a_l_2microcontroller__hal__ref__impl_2hal_2drivers_2gpio_2gpio_8c" id="a_d_1_2projects_2_h_a_l_2microcontroller__hal__ref__impl_2hal_2drivers_2gpio_2gpio_8c">
-<area shape="rect" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="33,5,236,61"/>
+<area shape="rect" title="Interface implementation for general purpose input/output (GPIO)" alt="" coords="81,5,284,61"/>
 <area shape="rect" title=" " alt="" coords="5,109,67,136"/>
 <area shape="rect" href="pic12f683_8h.html" title="PIC12F683 hardware definitions and specifications." alt="" coords="91,109,179,136"/>
 <area shape="rect" href="gpio_8h.html" title="Interface definition for general purpose input/output (GPIO)" alt="" coords="203,109,261,136"/>
-<area shape="rect" href="gpio__config_8h.html" title="Interface definition for general purpose input/output configuration." alt="" coords="169,184,295,211"/>
+<area shape="rect" href="constants_8h.html" title="Interface definition for support functions, types and constants." alt="" coords="285,109,376,136"/>
+<area shape="rect" href="gpio__config_8h.html" title="Interface definition for general purpose input/output configurations." alt="" coords="169,184,295,211"/>
 </map>
 </div>
 </div>
@@ -111,10 +113,16 @@ Functions</h2></td></tr>
 <tr class="separator:gaba4bf0e9e96d49b2779b2eff918e05ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaad357fa85fa00542c5db89d2d867691"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gaaad357fa85fa00542c5db89d2d867691">Gpio_Write</a> (<a class="el" href="gpio__config_8h.html#ab7f6171645a4af1d01a6fa997f946197">GpioChannel_t</a> channel, <a class="el" href="gpio__config_8h.html#a40984b9819168ed55b8e8f43b4517be7">GpioPinState_t</a> state)</td></tr>
 <tr class="separator:gaaad357fa85fa00542c5db89d2d867691"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac83ad26622b319e44ed059988477cd22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gac83ad26622b319e44ed059988477cd22">Gpio_Write_Register</a> (<a class="el" href="union_gpio_port__t.html">GpioPort_t</a> Port)</td></tr>
-<tr class="separator:gac83ad26622b319e44ed059988477cd22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74da61c28104d883186e6963d2f90382"><td class="memItemLeft" align="right" valign="top"><a class="el" href="union_gpio_port__t.html">GpioPort_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga74da61c28104d883186e6963d2f90382">Gpio_Read_Register</a> (void)</td></tr>
-<tr class="separator:ga74da61c28104d883186e6963d2f90382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa1c42596699c96a1b8b9244cdefe9421"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gpio__config_8h.html#a40984b9819168ed55b8e8f43b4517be7">GpioPinState_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gaa1c42596699c96a1b8b9244cdefe9421">Gpio_Read</a> (<a class="el" href="gpio__config_8h.html#ab7f6171645a4af1d01a6fa997f946197">GpioChannel_t</a> channel)</td></tr>
+<tr class="separator:gaa1c42596699c96a1b8b9244cdefe9421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab7f799e27e71520f7aeddfbd65220ae4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gab7f799e27e71520f7aeddfbd65220ae4">Gpio_Toggle</a> (<a class="el" href="gpio__config_8h.html#ab7f6171645a4af1d01a6fa997f946197">GpioChannel_t</a> channel)</td></tr>
+<tr class="separator:gab7f799e27e71520f7aeddfbd65220ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacdfdb42f0eda5599781e413e5384ec2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gacdfdb42f0eda5599781e413e5384ec2a">Gpio_Register_Write</a> (<a class="el" href="union_gpio_port__t.html">GpioPort_t</a> Port)</td></tr>
+<tr class="separator:gacdfdb42f0eda5599781e413e5384ec2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4c68b7f0e6e261dcdc80d9ec5d3d177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="union_gpio_port__t.html">GpioPort_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gab4c68b7f0e6e261dcdc80d9ec5d3d177">Gpio_Register_Read</a> (void)</td></tr>
+<tr class="separator:gab4c68b7f0e6e261dcdc80d9ec5d3d177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae46f6bfb2db2890eb3a08d39c973ca82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gae46f6bfb2db2890eb3a08d39c973ca82">Gpio_Callback_Register</a> (<a class="el" href="gpio__config_8h.html#ad4d537def96abcc822e21574875f5178">GpioCallbackEvent_t</a> event, void(*CallbackFunction)(void))</td></tr>
+<tr class="separator:gae46f6bfb2db2890eb3a08d39c973ca82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -124,6 +132,10 @@ Variables</h2></td></tr>
 <tr class="separator:ga80b2e88e969b3ee6cde0d4380eadc5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4d8f0dbc89ec230822175dc78100cd57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gpio__config_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga4d8f0dbc89ec230822175dc78100cd57">ansel</a> = 0</td></tr>
 <tr class="separator:ga4d8f0dbc89ec230822175dc78100cd57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1df02ff5cc3412fa44ecb6aaaa31d29e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gpio__config_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga1df02ff5cc3412fa44ecb6aaaa31d29e">option</a> = 0</td></tr>
+<tr class="separator:ga1df02ff5cc3412fa44ecb6aaaa31d29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga740d62c1ec17939f3952a7ef4bde3f71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gpio__config_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga740d62c1ec17939f3952a7ef4bde3f71">intcon</a> = 0</td></tr>
+<tr class="separator:ga740d62c1ec17939f3952a7ef4bde3f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Interface implementation for general purpose input/output (GPIO) </p>

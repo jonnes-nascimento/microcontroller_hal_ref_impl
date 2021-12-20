@@ -1,7 +1,9 @@
 <map id="main" name="main">
-<area shape="rect" id="node1" title=" " alt="" coords="5,81,56,108"/>
-<area shape="rect" id="node2" href="$group___drivers.html#gaba4bf0e9e96d49b2779b2eff918e05ab" title=" " alt="" coords="139,5,212,32"/>
-<area shape="rect" id="node3" href="$group___drivers.html#gaaad357fa85fa00542c5db89d2d867691" title=" " alt="" coords="132,56,219,83"/>
-<area shape="rect" id="node4" href="$group___drivers.html#gac83ad26622b319e44ed059988477cd22" title=" " alt="" coords="104,107,247,133"/>
-<area shape="rect" id="node5" href="$group___configurations.html#gafd1ae0c543cb31bdd2d0806bcbdb5d9b" title=" " alt="" coords="122,157,229,184"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,132,56,159"/>
+<area shape="rect" id="node2" href="$group___drivers.html#gae46f6bfb2db2890eb3a08d39c973ca82" title=" " alt="" coords="104,5,265,32"/>
+<area shape="rect" id="node3" href="$group___drivers.html#gaba4bf0e9e96d49b2779b2eff918e05ab" title=" " alt="" coords="148,56,221,83"/>
+<area shape="rect" id="node4" href="$group___drivers.html#gacdfdb42f0eda5599781e413e5384ec2a" title=" " alt="" coords="113,107,256,133"/>
+<area shape="rect" id="node5" href="$group___drivers.html#gaaad357fa85fa00542c5db89d2d867691" title=" " alt="" coords="141,157,228,184"/>
+<area shape="rect" id="node6" href="$group___configurations.html#gafd1ae0c543cb31bdd2d0806bcbdb5d9b" title=" " alt="" coords="131,208,238,235"/>
+<area shape="rect" id="node7" href="$main_8c.html#a22006dadf0bde1d3e564a2d5792de074" title=" " alt="" coords="149,259,221,285"/>
 </map>
