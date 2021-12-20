@@ -11,7 +11,7 @@
  ************************************************************************************************/
 /** **********************************************************************************************
  * @file gpio_config.h
- * @brief Interface definition for general purpose input/output configuration
+ * @brief Interface definition for general purpose input/output configurations
  *
  *  This is the header file for the definition of the configuration for a digital
  *  input / output peripheral.
@@ -100,12 +100,13 @@ typedef enum
  **/
 typedef enum
 {
-    GPIO_PIN_FUNCTION_DIGITAL,           /**< Pin is digital mode */
-    GPIO_PIN_FUNCTION_ANALOG,            /**< Pin is analog mode */
-    GPIO_PIN_FUNCTION_COMPARATOR,        /**< Pin is comparator mode */
-    GPIO_PIN_FUNCTION_TIMER,             /**< Pin is timer enabled */
-    GPIO_PIN_FUNCTION_CAPTURE_COMPARE,   /**< Pin is capture/compare mode */
-    GPIO_PIN_FUNCTION_INTERRUPT,         /**< Pin is interrupt enabled */
+    GPIO_PIN_FUNCTION_DIGITAL,               /**< Pin is digital mode */
+    GPIO_PIN_FUNCTION_ANALOG,                /**< Pin is analog mode */
+    GPIO_PIN_FUNCTION_COMPARATOR,            /**< Pin is comparator mode */
+    GPIO_PIN_FUNCTION_TIMER,                 /**< Pin is timer enabled */
+    GPIO_PIN_FUNCTION_CAPTURE_COMPARE,       /**< Pin is capture/compare mode */
+    GPIO_PIN_FUNCTION_INTERRUPT_ON_CHANGE,   /**< Pin is interrupt-on-change enabled */
+    GPIO_PIN_FUNCTION_EXTERNAL_INTERRUPT     /**< Pin is external interrupt enabled */
 } GpioPinFunction_t;
 
 /**
@@ -137,15 +138,34 @@ typedef enum
 } GpioPinState_t;
 
 /**
+ * GPIO interrupt trigger edge types
+ **/
+typedef enum
+{
+    GPIO_INTERRUPT_EDGE_FALLING,    /**< Interrupt is enabled on falling edge (0) */
+    GPIO_INTERRUPT_EDGE_RISING,     /**< Interrupt is enabled on rising edge (1) */
+    GPIO_INTERRUPT_EDGE_NONE        /**< Interrupts are disabled */
+} GpioInterruptEdge_t;
+
+/**
+ * GPIO callback events
+ **/
+typedef enum
+{
+    GPIO_EXTERNAL_INTERRUPT
+} GpioCallbackEvent_t;
+
+/**
  * GPIO configurations.
  **/
 typedef struct
 {
-    GpioChannel_t      Channel;     /**< Name of gpio pin */
-    GpioPinFunction_t  Function;    /**< Function of gpio pin */
-    GpioPinDirection_t Direction;   /**< Direction of gpio pin */
-    GpioPinPullUp_t    PullUp;      /**< Pull-Up resistor of gpio pin */
-    GpioPinState_t     State;       /**< Pin state */
+    GpioChannel_t       Channel;         /**< Name of gpio pin */
+    GpioPinFunction_t   Function;        /**< Function of gpio pin */
+    GpioPinDirection_t  Direction;       /**< Direction of gpio pin */
+    GpioPinPullUp_t     PullUp;          /**< Pull-Up resistor of gpio pin */
+    GpioPinState_t      State;           /**< Pin state */
+    GpioInterruptEdge_t InterruptEdge;   /**< Interrupt edge trigger */
 } GpioConfig_t;
 
 /************************************************************************************************

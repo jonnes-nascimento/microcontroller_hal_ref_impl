@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include "pic12f683.h"
 #include "gpio.h"
+#include "constants.h"
 
 /************************************************************************************************
  * Defines and Macros
@@ -44,12 +45,18 @@
   (byte & 0x01 ? '1' : '0')
 
 /************************************************************************************************
+ * Typedefs
+ ************************************************************************************************/
+
+/************************************************************************************************
  * Global Variables
  ************************************************************************************************/
 /* DUMMY TEST VARS */
 uint8_t trisio = 0;
 uint8_t gpio = 0;
 uint8_t ansel = 0;
+uint8_t option = 0;
+uint8_t intcon = 0;
 
 /************************************************************************************************
  * Module Variables Definitions
@@ -78,6 +85,14 @@ static ARCH_ADDR_SIZE volatile * const GpioDirection[NUMBER_OF_PORTS] = {
 
 static ARCH_ADDR_SIZE volatile * const GpioFunction[NUMBER_OF_PORTS] = {
         (ARCH_ADDR_SIZE *) ANSEL
+};
+
+static ARCH_ADDR_SIZE volatile * const GpioInterruptControl[NUMBER_OF_PORTS] = {
+        (ARCH_ADDR_SIZE *) INTCON
+};
+
+static ARCH_ADDR_SIZE volatile * const GpioOption[NUMBER_OF_PORTS] = {
+        (ARCH_ADDR_SIZE *) OPTION
 };
 /************************************************************************************************
  * Functions Prototypes
@@ -114,9 +129,12 @@ static ARCH_ADDR_SIZE volatile * const GpioFunction[NUMBER_OF_PORTS] = {
  * Gpio_Init(GpioConfigGet());
  * @endcode
  *
- * @see GpioConfigGet
  * @see Gpio_Write
- * @see Gpio_Write_Register
+ * @see Gpio_Read
+ * @see Gpio_Toggle
+ * @see Gpio_Register_Write
+ * @see Gpio_Register_Read
+ * @see Gpio_Callback_Register
  *
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
@@ -148,17 +166,56 @@ void Gpio_Init(const GpioConfig_t * const Config)
             // *GpioPort[port] = (Config[i].State << i);
            gpio |= (Config[i].State << i);
 
-           if (Config[i].Function == GPIO_PIN_FUNCTION_ANALOG && Config[i].Direction == GPIO_PIN_DIRECTION_INPUT)
+           switch (Config[i].Function)
            {
-               ansel |= (Config[i].Direction << i);
+               case GPIO_PIN_FUNCTION_ANALOG:
+                   if (Config[i].Direction == GPIO_PIN_DIRECTION_INPUT)
+                   {
+                       //*GpioFunction[port] |= (Config[i].Direction << i);
+                       ansel |= (Config[i].Direction << i);
+                   }
+                   else
+                   {
+                       //*GpioFunction[port] |= (HIGH << i);
+                       ansel &= ~(HIGH << i);
+                   }
+                   break;
+               case GPIO_PIN_FUNCTION_EXTERNAL_INTERRUPT:
+
+                   // Enables the external interrupt on GP2/INT
+                   //*GpioInterruptControl[port] |= GIE1_BIT_MASK;
+                   //*GpioInterruptControl[port] |= INTE_BIT_MASK;
+                   intcon |= GIE1_BIT_MASK;
+                   intcon |= INTE_BIT_MASK;
+
+                   // Clears the external interrupt flag INTF
+                   //*GpioInterruptControl[port] &= ~INTF_BIT_MASK;
+                   intcon &= ~INTF_BIT_MASK;
+
+                   // Sets the edge trigger of the interrupt
+                   if (Config[i].InterruptEdge == GPIO_INTERRUPT_EDGE_FALLING)
+                   {
+                       //*GpioOption[port] &= ~INTEDG_BIT_MASK;
+                       option &= ~INTEDG_BIT_MASK;
+                   }
+                   else if (Config[i].InterruptEdge == GPIO_INTERRUPT_EDGE_RISING)
+                   {
+                       //*GpioOption[port] |= INTEDG_BIT_MASK;
+                       option |= INTEDG_BIT_MASK;
+                   }
+                   else
+                   {
+                       // do nothing
+                   }
+
+                   break;
            }
-           else
-           {
-               ansel |= (0 << i);
-           }
+
         }
     }
 
+    printf("OPTION Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(option));
+    printf("INTCON Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(intcon));
     printf("TRISIO Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(trisio));
     printf("ANSEL Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(ansel));
     printf("GPIO Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
@@ -190,7 +247,11 @@ void Gpio_Init(const GpioConfig_t * const Config)
  * @endcode
  *
  * @see Gpio_Init
- * @see Gpio_Write_Register
+ * @see Gpio_Read
+ * @see Gpio_Toggle
+ * @see Gpio_Register_Write
+ * @see Gpio_Register_Read
+ * @see Gpio_Callback_Register
  *
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
@@ -208,7 +269,87 @@ void Gpio_Write(GpioChannel_t channel, GpioPinState_t state)
 }
 
 /************************************************************************************************
- * Function: void Gpio_Write_Register(GpioPort_t Port);
+ * Function: GpioPinState_t Gpio_Read(GpioChannel_t channel);
+ *//**
+ *
+ * \b Description:
+ *
+ * This function is used to read a pin state, specified by a channel, from GPIO port.
+ *
+ * Pre-condition: GPIO port must have been initialized <br>
+ *
+ * Post-condition: GPIO port state is returned
+ *
+ * @param [in]          channel is a GpioChannel_t that represents a bit on GPIO port
+ *
+ * @return              GpioPinState_t
+ *
+ * \b Example:
+ *
+ * @code
+ * GpioPinState_t PinState = Gpio_Read(CHANNEL_GP3);
+ * @endcode
+ *
+ * @see Gpio_Init
+ * @see Gpio_Write
+ * @see Gpio_Toggle
+ * @see Gpio_Register_Write
+ * @see Gpio_Register_Read
+ * @see Gpio_Callback_Register
+ *
+ * <b>HISTORY OF CHANGES</b>
+ * <table align="left" style="width:800px">
+ * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
+ * <tr><td> 20/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
+ * </table><br><br><hr>
+ ************************************************************************************************/
+GpioPinState_t Gpio_Read(GpioChannel_t channel)
+{
+
+}
+
+/************************************************************************************************
+ * Function: void Gpio_Toggle(GpioChannel_t channel);
+ *//**
+ *
+ * \b Description:
+ *
+ * This function is used to toggle a pin state, specified by a channel, from GPIO port.
+ *
+ * Pre-condition: GPIO port must have been initialized <br>
+ *
+ * Post-condition: GPIO port state is toggled
+ *
+ * @param [in]          channel is a GpioChannel_t that represents a bit on GPIO port
+ *
+ * @return              void
+ *
+ * \b Example:
+ *
+ * @code
+ * Gpio_Toggle(CHANNEL_GP3);
+ * @endcode
+ *
+ * @see Gpio_Init
+ * @see Gpio_Write
+ * @see Gpio_Read
+ * @see Gpio_Register_Write
+ * @see Gpio_Register_Read
+ * @see Gpio_Callback_Register
+ *
+ * <b>HISTORY OF CHANGES</b>
+ * <table align="left" style="width:800px">
+ * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
+ * <tr><td> 20/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
+ * </table><br><br><hr>
+ ************************************************************************************************/
+void Gpio_Toggle(GpioChannel_t channel)
+{
+
+}
+
+/************************************************************************************************
+ * Function: void Gpio_Register_Write(GpioPort_t Port);
  *//**
  *
  * \b Description:
@@ -226,12 +367,15 @@ void Gpio_Write(GpioChannel_t channel, GpioPinState_t state)
  * \b Example:
  *
  * @code
- * Gpio_Write_Byte(0x04);
+ * Gpio_Register_Write(0x04);
  * @endcode
  *
  * @see Gpio_Init
  * @see Gpio_Write
- * @see Gpio_Read_Register
+ * @see Gpio_Read
+ * @see Gpio_Toggle
+ * @see Gpio_Register_Read
+ * @see Gpio_Callback_Register
  *
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
@@ -240,7 +384,7 @@ void Gpio_Write(GpioChannel_t channel, GpioPinState_t state)
  * <tr><td> 17/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Documentation Created </td></tr>
  * </table><br><br><hr>
  ************************************************************************************************/
-void Gpio_Write_Register(GpioPort_t Port)
+void Gpio_Register_Write(GpioPort_t Port)
 {
     printf("\r\nWriting byte to GPIO...\r\n");
     gpio = Port.Byte;
@@ -249,7 +393,7 @@ void Gpio_Write_Register(GpioPort_t Port)
 }
 
 /************************************************************************************************
- * Function: GpioPort_t Gpio_Read_Register(void);
+ * Function: GpioPort_t Gpio_Register_Read(void);
  *//**
  *
  * \b Description:
@@ -267,12 +411,15 @@ void Gpio_Write_Register(GpioPort_t Port)
  * \b Example:
  *
  * @code
- * GpioPort_t Port = Gpio_Read_Byte();
+ * GpioPort_t Port = Gpio_Register_Read();
  * @endcode
  *
  * @see Gpio_Init
  * @see Gpio_Write
- * @see Gpio_Write_Register
+ * @see Gpio_Read
+ * @see Gpio_Toggle
+ * @see Gpio_Register_Write
+ * @see Gpio_Callback_Register
  *
  * <b>HISTORY OF CHANGES</b>
  * <table align="left" style="width:800px">
@@ -280,10 +427,53 @@ void Gpio_Write_Register(GpioPort_t Port)
  * <tr><td> 20/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
  * </table><br><br><hr>
  ************************************************************************************************/
-GpioPort_t Gpio_Read_Register(void)
+GpioPort_t Gpio_Register_Read(void)
 {
     // return *GpioPort[GPIO_PORT];
 }
+
+/************************************************************************************************
+ * Function: void Gpio_Callback_Register(GpioCallbackEvent_t event, void (*CallbackFunction)(void));
+ *//**
+ *
+ * \b Description:
+ *
+ * This function is used to register a callback function to an interrupt event
+ *
+ * Pre-condition: GPIO port must have been initialized <br>
+ * Pre-condition: The GPIO port bit must have been configured to trigger the interrupt
+ *
+ * Post-condition: The callback function is called to handles the interrupt event
+ *
+ * @param [in]          event is a pre-configured interrupt event
+ * @param [in]          (*CallbackFunction)(void) is the callback function to call
+ *
+ * @return              void
+ *
+ * \b Example:
+ *
+ * @code
+ * Gpio_Callback_Register(GPIO_EXTERNAL_INTERRUPT, BlinkLED);
+ * @endcode
+ *
+ * @see Gpio_Init
+ * @see Gpio_Write
+ * @see Gpio_Read
+ * @see Gpio_Toggle
+ * @see Gpio_Register_Write
+ * @see Gpio_Register_Read
+ *
+ * <b>HISTORY OF CHANGES</b>
+ * <table align="left" style="width:800px">
+ * <tr><td> Date       </td><td> Software Version </td><td> Initials </td><td> Description </td></tr>
+ * <tr><td> 20/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
+ * </table><br><br><hr>
+ ************************************************************************************************/
+void Gpio_Callback_Register(GpioCallbackEvent_t event, void (*CallbackFunction)(void))
+{
+
+}
+
 /************************************************************************************************
  * EOF
  ************************************************************************************************/

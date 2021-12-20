@@ -49,8 +49,11 @@
  ************************************************************************************************/
 void Gpio_Init(const GpioConfig_t * const Config);
 void Gpio_Write(GpioChannel_t channel, GpioPinState_t state);
-void Gpio_Write_Register(GpioPort_t port);
-GpioPort_t Gpio_Read_Register(void);
+GpioPinState_t Gpio_Read(GpioChannel_t channel);
+void Gpio_Toggle(GpioChannel_t channel);
+void Gpio_Register_Write(GpioPort_t port);
+GpioPort_t Gpio_Register_Read(void);
+void Gpio_Callback_Register(GpioCallbackEvent_t event, void (*CallbackFunction)(void));
 
 #endif //_GPIO_H_
 /************************************************************************************************
