@@ -55,7 +55,7 @@
  ************************************************************************************************/
 
 /************************************************************************************************
- * Typedefs
+ * Static Typedefs
  ************************************************************************************************/
 
 /************************************************************************************************
@@ -76,19 +76,21 @@ int main() {
     port.Byte = 0x08;
     port.Bit0 = 0x01;
 
-    Gpio_Init(GpioConfigGet());
-    Gpio_Write(CHANNEL_GP3, GPIO_PIN_STATE_HIGH);
-    Gpio_Write(CHANNEL_GP3, GPIO_PIN_STATE_LOW);
-    Gpio_Register_Write(port);
+    printf("\r\nLedBlink Function Address: %x\r\n\n", LedBlink);
 
     Gpio_Callback_Register(GPIO_EXTERNAL_INTERRUPT, LedBlink);
+
+    Gpio_Init(GpioConfigGet());
+    //Gpio_Write(CHANNEL_GP3, GPIO_PIN_STATE_HIGH);
+    //Gpio_Write(CHANNEL_GP3, GPIO_PIN_STATE_LOW);
+    //Gpio_Register_Write(port);
 
     return 0;
 }
 
 void LedBlink(void)
 {
-    printf("LED BLINKING...");
+    printf("LED BLINKING...\r\n");
 }
 /************************************************************************************************
  * EOF

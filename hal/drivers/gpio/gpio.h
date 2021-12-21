@@ -53,7 +53,7 @@ GpioPinState_t Gpio_Read(GpioChannel_t channel);
 void Gpio_Toggle(GpioChannel_t channel);
 void Gpio_Register_Write(GpioPort_t port);
 GpioPort_t Gpio_Register_Read(void);
-void Gpio_Callback_Register(GpioCallbackEvent_t event, void (*CallbackFunction)(void));
+void Gpio_Callback_Register(GpioCallbackEvent_t Event, void (*CallbackFunction)(void));
 
 #endif //_GPIO_H_
 /************************************************************************************************

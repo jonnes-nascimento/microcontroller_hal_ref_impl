@@ -71,6 +71,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -100,6 +101,11 @@ Include dependency graph for gpio.c:</div>
 </div>
 <p><a href="gpio_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_callback_register__t.html">CallbackRegister_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:gae8b243fdac3715a3da7c98b9a380eaa5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gae8b243fdac3715a3da7c98b9a380eaa5">BYTE_TO_BINARY_PATTERN</a>&#160;&#160;&#160;&quot;%c%c%c%c%c%c%c%c&quot;</td></tr>
@@ -121,8 +127,8 @@ Functions</h2></td></tr>
 <tr class="separator:gacdfdb42f0eda5599781e413e5384ec2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab4c68b7f0e6e261dcdc80d9ec5d3d177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="union_gpio_port__t.html">GpioPort_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gab4c68b7f0e6e261dcdc80d9ec5d3d177">Gpio_Register_Read</a> (void)</td></tr>
 <tr class="separator:gab4c68b7f0e6e261dcdc80d9ec5d3d177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae46f6bfb2db2890eb3a08d39c973ca82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gae46f6bfb2db2890eb3a08d39c973ca82">Gpio_Callback_Register</a> (<a class="el" href="gpio__config_8h.html#ad4d537def96abcc822e21574875f5178">GpioCallbackEvent_t</a> event, void(*CallbackFunction)(void))</td></tr>
-<tr class="separator:gae46f6bfb2db2890eb3a08d39c973ca82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf092e6147616d733f358ee902ccbaed7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#gaf092e6147616d733f358ee902ccbaed7">Gpio_Callback_Register</a> (<a class="el" href="gpio__config_8h.html#ad4d537def96abcc822e21574875f5178">GpioCallbackEvent_t</a> Event, void(*CallbackFunction)(void))</td></tr>
+<tr class="separator:gaf092e6147616d733f358ee902ccbaed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -136,6 +142,8 @@ Variables</h2></td></tr>
 <tr class="separator:ga1df02ff5cc3412fa44ecb6aaaa31d29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga740d62c1ec17939f3952a7ef4bde3f71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gpio__config_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga740d62c1ec17939f3952a7ef4bde3f71">intcon</a> = 0</td></tr>
 <tr class="separator:ga740d62c1ec17939f3952a7ef4bde3f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c4a28340ddb779e99668fa68a5e4732"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___drivers.html#ga4c4a28340ddb779e99668fa68a5e4732">fsr</a> )(void)</td></tr>
+<tr class="separator:ga4c4a28340ddb779e99668fa68a5e4732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Interface implementation for general purpose input/output (GPIO) </p>

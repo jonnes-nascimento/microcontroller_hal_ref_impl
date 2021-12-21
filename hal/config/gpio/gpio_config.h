@@ -52,7 +52,7 @@ typedef unsigned char uint8_t;
 typedef enum
 {
     GPIO_PORT,       /**< Gpio port */
-    NUMBER_OF_PORTS  /**< Number of ports on microcontroller */
+    GPIO_PORT_COUNT  /**< Number of ports on microcontroller */
 } Port_t;
 
 /**
@@ -83,7 +83,7 @@ typedef enum
     CHANNEL_GP3,        /**< Channel for GP3 */
     CHANNEL_GP4,        /**< Channel for GP4 */
     CHANNEL_GP5,        /**< Channel for GP5 */
-    GPIO_MAX_PIN_NUMBER /**< Number of gpio ports */
+    GPIO_CHANNEL_COUNT  /**< Number of gpio channels */
 } GpioChannel_t;
 
 /**
@@ -152,7 +152,8 @@ typedef enum
  **/
 typedef enum
 {
-    GPIO_EXTERNAL_INTERRUPT
+    GPIO_EXTERNAL_INTERRUPT,
+    GPIO_CALLBACK_EVENT_COUNT
 } GpioCallbackEvent_t;
 
 /**

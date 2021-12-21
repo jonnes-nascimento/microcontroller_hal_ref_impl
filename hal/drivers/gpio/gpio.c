@@ -45,8 +45,16 @@
   (byte & 0x01 ? '1' : '0')
 
 /************************************************************************************************
- * Typedefs
+ * Static Typedefs
  ************************************************************************************************/
+/**
+ * Define a helper type to store the event's callback function
+ * */
+typedef struct
+{
+    GpioCallbackEvent_t Event;          /**< Event that triggers the interruption */
+    void (*CallbackFunction)(void);     /**< Function to callback on interruption */
+} CallbackRegister_t;
 
 /************************************************************************************************
  * Global Variables
@@ -57,10 +65,16 @@ uint8_t gpio = 0;
 uint8_t ansel = 0;
 uint8_t option = 0;
 uint8_t intcon = 0;
+void (*fsr)(void);
 
 /************************************************************************************************
  * Module Variables Definitions
  ************************************************************************************************/
+/**
+ * List to store the events' callback functions
+ * */
+static CallbackRegister_t CallbackRegisterList[GPIO_CALLBACK_EVENT_COUNT];
+
 /* This is for test only - this code must be moved */
 static ARCH_ADDR_SIZE volatile * const SystemOscilator = {
         (ARCH_ADDR_SIZE *) OSCCON
@@ -75,28 +89,29 @@ static ARCH_ADDR_SIZE volatile * const SystemADConverter = {
 };
 /* *************************************************************************/
 
-static ARCH_ADDR_SIZE volatile * const GpioPort[NUMBER_OF_PORTS] = {
+static ARCH_ADDR_SIZE volatile * const GpioPort[GPIO_PORT_COUNT] = {
         (ARCH_ADDR_SIZE *) GPIO
 };
 
-static ARCH_ADDR_SIZE volatile * const GpioDirection[NUMBER_OF_PORTS] = {
+static ARCH_ADDR_SIZE volatile * const GpioDirection[GPIO_PORT_COUNT] = {
         (ARCH_ADDR_SIZE *) TRISIO
 };
 
-static ARCH_ADDR_SIZE volatile * const GpioFunction[NUMBER_OF_PORTS] = {
+static ARCH_ADDR_SIZE volatile * const GpioFunction[GPIO_PORT_COUNT] = {
         (ARCH_ADDR_SIZE *) ANSEL
 };
 
-static ARCH_ADDR_SIZE volatile * const GpioInterruptControl[NUMBER_OF_PORTS] = {
+static ARCH_ADDR_SIZE volatile * const GpioInterruptControl[GPIO_PORT_COUNT] = {
         (ARCH_ADDR_SIZE *) INTCON
 };
 
-static ARCH_ADDR_SIZE volatile * const GpioOption[NUMBER_OF_PORTS] = {
+static ARCH_ADDR_SIZE volatile * const GpioOption[GPIO_PORT_COUNT] = {
         (ARCH_ADDR_SIZE *) OPTION
 };
 /************************************************************************************************
  * Functions Prototypes
  ************************************************************************************************/
+static void Gpio_Interrupt_Callback_Executor(void);
 
 /************************************************************************************************
  * Functions Definitions
@@ -115,6 +130,7 @@ static ARCH_ADDR_SIZE volatile * const GpioOption[NUMBER_OF_PORTS] = {
  * Pre-condition: NUMBER_OF_PORTS > 0 <br>
  * Pre-condition: GPIO_MAX_PIN_NUMBER > 0 <br>
  * Pre-condition: System's oscillator, comparator and A/D converters initialized <br>
+ * Pre-condition: All interrupts' callback functions registered (calling Gpio_Callback_Register function) <br>
  *
  * Post-condition: GPIO port initialized and configured
  *
@@ -146,19 +162,18 @@ static ARCH_ADDR_SIZE volatile * const GpioOption[NUMBER_OF_PORTS] = {
 void Gpio_Init(const GpioConfig_t * const Config)
 {
     printf("\r\nInitializing GPIO...\r\n");
-    printf("GPIO Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
 
     /* This is for test only - this code must be moved */
     //*SystemOscilator    = 0x70; /**< Switch to 8 MHz system clock */
     //*SystemComparator   = 0x07; /**< Comparators off */
     //*SystemADConverters = 0x00; /**< AD Converters off */
 
-    for (uint8_t port = 0; port < NUMBER_OF_PORTS; port++)
+    for (uint8_t port = 0; port < GPIO_PORT_COUNT; port++)
     {
         //*GpioPort[port] = 0x00; /**< Resets all GPIO pins */
 
         /* Sets the GPIOs */
-        for (uint8_t i = 0; i < GPIO_MAX_PIN_NUMBER; i++)
+        for (uint8_t i = 0; i < GPIO_CHANNEL_COUNT; i++)
         {
            // *GpioDirection[port] = (Config[i].Direction << i);
            trisio |= (Config[i].Direction << i);
@@ -182,15 +197,7 @@ void Gpio_Init(const GpioConfig_t * const Config)
                    break;
                case GPIO_PIN_FUNCTION_EXTERNAL_INTERRUPT:
 
-                   // Enables the external interrupt on GP2/INT
-                   //*GpioInterruptControl[port] |= GIE1_BIT_MASK;
-                   //*GpioInterruptControl[port] |= INTE_BIT_MASK;
-                   intcon |= GIE1_BIT_MASK;
-                   intcon |= INTE_BIT_MASK;
-
-                   // Clears the external interrupt flag INTF
-                   //*GpioInterruptControl[port] &= ~INTF_BIT_MASK;
-                   intcon &= ~INTF_BIT_MASK;
+                   // Enable the external interrupt on GP2/INT
 
                    // Sets the edge trigger of the interrupt
                    if (Config[i].InterruptEdge == GPIO_INTERRUPT_EDGE_FALLING)
@@ -208,19 +215,34 @@ void Gpio_Init(const GpioConfig_t * const Config)
                        // do nothing
                    }
 
+                   // Clear the external interrupt flag INTF
+                   //*GpioInterruptControl[port] &= ~INTF_BIT_MASK;
+                   intcon &= ~INTF_BIT_MASK;
+
+                   // Enable external interrupts
+                   //*GpioInterruptControl[port] |= INTE_BIT_MASK;
+                   intcon |= INTE_BIT_MASK;
+
+                   // Enable global interrupts
+                   //*GpioInterruptControl[port] |= GIE1_BIT_MASK;
+                   intcon |= GIE1_BIT_MASK;
+
+                   // Save the callback function executor address to the FSR register
+                   //*FSR = &Gpio_Interrupt_Callback_Executor;
+                   fsr = Gpio_Interrupt_Callback_Executor;
+
                    break;
-           }
+           } // switch Config[i].Function
+        } // for GPIO_CHANNEL_COUNT
+    } // for GPIO_PORT_COUNT
 
-        }
-    }
-
-    printf("OPTION Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(option));
-    printf("INTCON Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(intcon));
-    printf("TRISIO Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(trisio));
-    printf("ANSEL Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(ansel));
-    printf("GPIO Byte "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
-    printf("GPIO initialized!\r\n");
-    printf("GPIO Port Address: %x\n", GpioDirection[0]);
+    printf("OPTION register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(option));
+    printf("INTCON register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(intcon));
+    printf("TRISIO register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(trisio));
+    printf("ANSEL  register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(ansel));
+    printf("GPIO   register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
+    printf("FSR    register: %x\r\n", &(*fsr));
+    fsr();
 }
 
 /************************************************************************************************
@@ -469,9 +491,53 @@ GpioPort_t Gpio_Register_Read(void)
  * <tr><td> 20/12/2021 </td><td> 0.0.1            </td><td> JFN      </td><td> Creation Date </td></tr>
  * </table><br><br><hr>
  ************************************************************************************************/
-void Gpio_Callback_Register(GpioCallbackEvent_t event, void (*CallbackFunction)(void))
+void Gpio_Callback_Register(GpioCallbackEvent_t Event, void (*CallbackFunction)(void))
 {
+    CallbackRegister_t CallbackFunctionReg = {.Event = Event, .CallbackFunction = CallbackFunction};
+    CallbackRegisterList[Event] = CallbackFunctionReg;
 
+    printf("Callback Functions List\r\n");
+    printf("=======================\r\n");
+    for (uint8_t i = 0; i < GPIO_CALLBACK_EVENT_COUNT; i++)
+    {
+        printf("Event: %d, Function Address: %x\r\n", CallbackRegisterList[i].Event, &(*CallbackRegisterList[i].CallbackFunction));
+        printf("Calling callback function:\r\n");
+        CallbackRegisterList[i].CallbackFunction();
+    }
+    printf("=======================\r\n");
+}
+
+/************************************************************************************************
+ * Auxiliary Functions
+ ************************************************************************************************/
+static void Gpio_Interrupt_Callback_Executor(void)
+{
+    printf("\r\nInterrupt Callback Executor\r\n");
+
+    // Disable external interrupts (INTCON.INTE)
+
+    // Save W register
+
+    // Save STATUS register
+
+    // Verify interrupts flags to determine which callback function to call
+
+    /*
+      if (INTCON.INF)
+      {
+           CallbackRegisterList[GPIO_EXTERNAL_INTERRUPT].CallbackFunction();
+           // Clear interrupt flag
+      }
+     */
+    //
+
+    // Restore W register
+
+    // Restore STATUS register
+
+    // Enable external interrupts (INTCON.INTE)
+
+    // Return with asm("RETFIE");
 }
 
 /************************************************************************************************
