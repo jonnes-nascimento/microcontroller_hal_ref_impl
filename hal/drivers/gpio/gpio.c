@@ -170,19 +170,32 @@ void Gpio_Init(const GpioConfig_t * const Config)
 
     for (uint8_t port = 0; port < GPIO_PORT_COUNT; port++)
     {
-        //*GpioPort[port] = 0x00; /**< Resets all GPIO pins */
+        //*GpioPort[port] = 0x00;       /**< Resets all GPIO pins */
+
+        gpio = 0;
+        trisio = 0x3F;
 
         /* Sets the GPIOs */
         for (uint8_t i = 0; i < GPIO_CHANNEL_COUNT; i++)
         {
-           // *GpioDirection[port] = (Config[i].Direction << i);
-           trisio |= (Config[i].Direction << i);
+            // Sets the pin direction as output (all pins are set like input previously)
+            if (Config[i].Direction == GPIO_PIN_DIRECTION_OUTPUT)
+            {
+               // *GpioDirection[port] &= ~(HIGH << i);
+                trisio &= ~(HIGH << i);
+            }
 
             // *GpioPort[port] = (Config[i].State << i);
            gpio |= (Config[i].State << i);
 
            switch (Config[i].Function)
            {
+               case GPIO_PIN_FUNCTION_DIGITAL: break;
+               case GPIO_PIN_FUNCTION_CAPTURE_COMPARE: break;
+               case GPIO_PIN_FUNCTION_COMPARATOR: break;
+               case GPIO_PIN_FUNCTION_INTERRUPT_ON_CHANGE: break;
+               case GPIO_PIN_FUNCTION_TIMER: break;
+
                case GPIO_PIN_FUNCTION_ANALOG:
                    if (Config[i].Direction == GPIO_PIN_DIRECTION_INPUT)
                    {
@@ -191,7 +204,7 @@ void Gpio_Init(const GpioConfig_t * const Config)
                    }
                    else
                    {
-                       //*GpioFunction[port] |= (HIGH << i);
+                       //*GpioFunction[port] &= ~(HIGH << i);
                        ansel &= ~(HIGH << i);
                    }
                    break;
@@ -228,7 +241,8 @@ void Gpio_Init(const GpioConfig_t * const Config)
                    intcon |= GIE1_BIT_MASK;
 
                    // Save the callback function executor address to the FSR register
-                   //*FSR = &Gpio_Interrupt_Callback_Executor;
+                   //*FSR = (unsigned char) &Gpio_Interrupt_Callback_Executor;
+                   //asm volatile ("jmp *%0" : : "r" (&Gpio_Interrupt_Callback_Executor));
                    fsr = Gpio_Interrupt_Callback_Executor;
 
                    break;
@@ -241,8 +255,7 @@ void Gpio_Init(const GpioConfig_t * const Config)
     printf("TRISIO register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(trisio));
     printf("ANSEL  register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(ansel));
     printf("GPIO   register: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
-    printf("FSR    register: %x\r\n", &(*fsr));
-    fsr();
+    printf("FSR    register: %x\r\n\n", &(*fsr));
 }
 
 /************************************************************************************************
@@ -367,7 +380,8 @@ GpioPinState_t Gpio_Read(GpioChannel_t channel)
  ************************************************************************************************/
 void Gpio_Toggle(GpioChannel_t channel)
 {
-
+    gpio ^= (HIGH << channel);
+    printf("GPIO   toggling: "BYTE_TO_BINARY_PATTERN"\n", BYTE_TO_BINARY(gpio));
 }
 
 /************************************************************************************************
